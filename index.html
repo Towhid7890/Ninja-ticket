@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+       
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+        <div id="main-page" class="booking-form">
+            <h3>Booking Flights</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhaka, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="first-input" class="inp-style inp-width" type="number" name="" value="0">
+                </div>
+                
+                <div class="plus-minus-btn">
+                  <p><span id="first-plus">+</span></p>
+                   <p><span id="first-minus">-</span></p>
+                </div>
+            </div>
+            <!-- Economy section start here-->
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input id="economy-input" class="inp-style inp-width" type="number" name="" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                    <p> <span id="economy-plus">+</span></p>
+                       <p><span id="economy-minus">-</span> </p>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="sub-total">$500</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="tax-value">$50</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="grand-total">$550</p>
+                    </div>
+                </div>
+            </div>
+            <button id="book-btn" class="btn-style">Book Now</button>
+        </div>
+
+        <div class="booking-content">
+            <h1>discover <br> around the world</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
+        </div>
+        <div id="new-page" class="new-page">
+            <div class="page-body">
+                <h3 >Thanks for Booking Your Ticket</h3>
+                <label style="float: left;" for="">You Flying From :</label><br>
+                <input class="from" type="text" placeholder="Dhaka">
+                <label style="float: left;" for="">Your Flying To :</label><br>
+                <input class="to" type="text" placeholder="USA">
+                <h1> Have a safe Journey</h1>
+            </div>
+        </div>
+
+
+
+
+        <script>
+            //first class section
+
+            function seatCondition(condition,isIncrease){
+                const seatInput = document.getElementById(condition+'-input');
+                const seatValue = parseInt(seatInput.value);
+                // const newFirstValue = firstValue + 1;
+                let newSeatValue = 0;
+                if(isIncrease == true){
+                    newSeatValue= seatValue+1;
+                }
+                if(isIncrease == false && seatValue>0){
+                    newSeatValue =seatValue -1;
+                }
+                seatInput.value = newSeatValue;
+                subtotal();
+            };
+          
+            document.getElementById('first-plus').addEventListener("click",function(){
+               seatCondition('first',true);
+                
+            })
+            document.getElementById('first-minus').addEventListener("click",function(){
+               seatCondition('first',false);
+            });
+            // economy section start here
+            document.getElementById('economy-plus').addEventListener("click",function(){
+              seatCondition('economy',true);
+            });
+            document.getElementById('economy-minus').addEventListener("click",function(){   
+                seatCondition('economy',false);
+            });
+           function subtotal(){
+            const subInput = document.getElementById('first-input');
+            const subValue = parseInt(subInput.value);
+            const firstTotal = subValue*150;
+            const ecoInput = document.getElementById('economy-input');
+            const ecoValue = parseInt(ecoInput.value);
+            const ecoTotal = ecoValue*100;
+            const subTotal = firstTotal + ecoTotal;
+            document.getElementById('sub-total').innerText = '$'+ subTotal; 
+            const tax= Math.round(subTotal * 0.01);
+            document.getElementById('tax-value').innerText ='$'+ tax;
+            const grandTotal = subTotal + tax;
+            document.getElementById('grand-total').innerText ='$'+ grandTotal;
+           }
+           document.getElementById('book-btn').addEventListener("click",function(){
+               document.getElementById('new-page').style.display='block';
+               document.getElementById('main-page').style.display='none';
+           })
+        </script>
+    </main>
+
+    <!--Thank You-->
+</body>
+
+</html>
